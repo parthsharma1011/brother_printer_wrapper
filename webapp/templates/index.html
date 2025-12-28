@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Brother QL-700 Label Printer</title>
+    <meta name="description" content="Web interface for Brother QL-700 label printer with QR code support">
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏷️</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🏷️ Label Printer</h1>
+            <p>Professional label printing with QR codes for Brother QL-700</p>
+        </header>
+
+        <div class="columns">
+            <div class="left">
+                <!-- CSV Upload Section -->
+                <section class="card">
+                    <h3>📁 Upload CSV Data</h3>
+                    <div class="row">
+                        <input type="file" id="csvfile" accept=".csv" aria-label="Select CSV file">
+                        <button id="upload" class="btn primary">📤 Upload</button>
+                    </div>
+                    <div class="row">
+                        <button id="sample" class="btn secondary">📋 Use Sample Data</button>
+                    </div>
+                    <div id="columns" class="columns-list" role="group" aria-label="Column selection"></div>
+                </section>
+
+                <!-- Settings Section -->
+                <section class="card">
+                    <h3>⚙️ Label Settings</h3>
+                    <div class="row">
+                        <label>
+                            <input type="checkbox" id="qr" checked aria-describedby="qr-help">
+                            Include QR Code
+                        </label>
+                        <small id="qr-help" style="color: #718096; margin-left: 1.5rem;">QR codes contain the full label text</small>
+                    </div>
+                    
+                    <div class="row">
+                        <label>
+                            Batch Size:
+                            <input type="number" id="batch" value="1" min="1" max="100" aria-label="Number of labels to print at once">
+                        </label>
+                        <label>
+                            Start:
+                            <input type="number" id="start" value="1" min="1" aria-label="Starting row number">
+                        </label>
+                        <label>
+                            End:
+                            <input type="number" id="end" placeholder="(all)" min="1" aria-label="Ending row number (optional)">
+                        </label>
+                    </div>
+                    
+                    <div id="previewArea">
+                        <button id="genPreview" class="btn primary wide">👁️ Generate Preview</button>
+                        <div id="previewImg" role="img" aria-label="Label preview"></div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="right">
+                <!-- Printer Section -->
+                <section class="card">
+                    <h3>🖨️ Printer Setup</h3>
+                    <div class="row">
+                        <button id="detect" class="btn secondary">🔍 Detect Printers</button>
+                        <input id="printerId" 
+                               placeholder="Printer ID (auto-detected)" 
+                               style="flex: 1;"
+                               aria-label="Printer identifier">
+                    </div>
+                    <pre id="printers" role="log" aria-label="Detected printers"></pre>
+
+                    <div class="row">
+                        <button id="startPrint" class="btn primary wide" disabled>
+                            🚀 Start Printing
+                        </button>
+                    </div>
+                    
+                    <div id="progressArea" style="display: none;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                        </div>
+                        <p id="progressText">Ready to print...</p>
+                    </div>
+                </section>
+
+                <!-- Logs Section -->
+                <section class="card">
+                    <h3>📋 Activity Logs</h3>
+                    <pre id="logs" role="log" aria-label="Application logs">Ready to start...</pre>
+                    <div class="row" style="margin-top: 1rem;">
+                        <button id="clearLogs" class="btn secondary">🗑️ Clear Logs</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <footer>
+            <p>Made with ❤️ by Asia on Plate team • 
+            <a href="https://asiaonplate.com" target="_blank" rel="noopener">Visit asiaonplate.com</a> • 
+            <a href="https://github.com/parthsharma1011/brother_printer_wrapper" target="_blank" rel="noopener">View on GitHub</a></p>
+        </footer>
+    </div>
+
+    <!-- Status Toast -->
+    <div id="toast" style="
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        color: white;
+        font-weight: 500;
+        transform: translateX(400px);
+        transition: transform 0.3s ease;
+        z-index: 1000;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    "></div>
+
+    <script src="/static/main.js"></script>
+</body>
+</html>

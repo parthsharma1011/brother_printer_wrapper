@@ -1,0 +1,1 @@
+# Brother QL-700 Label Printer Requirements\n\n# Core printing libraries\nbrother_ql>=0.9.4\npyusb>=1.3.1\n\n# Image processing and QR codes\nPillow>=9.0.0\nqrcode[pil]>=7.0\n\n# Web interface (Flask)\nFlask>=2.0.0\nWerkzeug>=2.0.0\n\n# System utilities\nclick>=8.0.0\nattrs>=21.0.0\nfuture>=0.18.0\npackbits>=0.6

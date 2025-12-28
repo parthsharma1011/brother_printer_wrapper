@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  brother-printer:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./webapp/uploads:/app/webapp/uploads
+      - ./webapp/defaults:/app/webapp/defaults
+      # Mount USB devices for printer access
+      - /dev/bus/usb:/dev/bus/usb
+    devices:
+      # Brother QL-700 USB device
+      - /dev/bus/usb
+    privileged: true  # Required for USB access
+    environment:
+      - HOST=0.0.0.0
+      - PORT=5000
+      - NO_BROWSER=1
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
